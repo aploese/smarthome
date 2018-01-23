@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * {@link ConfigDescriptionRegistry} provides access to {@link ConfigDescription}s.
@@ -143,7 +145,7 @@ public class ConfigDescriptionRegistry {
      * @return config description or null if no config description exists for
      *         the given name
      */
-    public ConfigDescription getConfigDescription(URI uri, Locale locale) {
+    public @Nullable ConfigDescription getConfigDescription(URI uri, Locale locale) {
         List<ConfigDescriptionParameter> parameters = new ArrayList<ConfigDescriptionParameter>();
         List<ConfigDescriptionParameterGroup> parameterGroups = new ArrayList<ConfigDescriptionParameterGroup>();
 
@@ -184,7 +186,7 @@ public class ConfigDescriptionRegistry {
      * @return config description or null if no config description exists for
      *         the given name
      */
-    public ConfigDescription getConfigDescription(URI uri) {
+    public @Nullable ConfigDescription getConfigDescription(URI uri) {
         return getConfigDescription(uri, null);
     }
 

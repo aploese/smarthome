@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -323,7 +323,7 @@ public class ZoneTemperatureControlHandler extends BaseThingHandler implements T
         ThingBuilder thingBuilder = editThing();
         thingBuilder.withChannels(newChannelList);
         updateThing(thingBuilder.build());
-        logger.debug("load channel: {} with item: {]", currentChannelID,
+        logger.debug("load channel: {} with item: {}", currentChannelID,
                 DsChannelTypeProvider.getItemType(currentChannelID));
     }
 

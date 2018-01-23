@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -14,13 +14,11 @@ package org.eclipse.smarthome.config.core.internal.normalization;
 
 import org.eclipse.smarthome.config.core.ConfigDescriptionParameter;
 
-import com.google.common.base.Strings;
-
 /**
  * The normalizer for {@link ConfigDescriptionParameter.Type#BOOLEAN}. It tries to convert the given value into a
  * {@link Boolean} object.
  * <p>
- * Therefore it considers numbers (0/1 and their {@link String} representations) as well as {@link Strings}, containing
+ * Therefore it considers numbers (0/1 and their {@link String} representations) as well as {@link String}s, containing
  * apart from the typical "true"/"false" also other values like "yes"/"no", "on"/"off".
  *
  * @author Simon Kaufmann - initial contribution and API.

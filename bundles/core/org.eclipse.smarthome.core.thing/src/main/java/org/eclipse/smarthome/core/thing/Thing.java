@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -60,6 +60,7 @@ public interface Thing extends Identifiable<ThingUID> {
      *
      * @return the human readable label
      */
+    @Nullable
     String getLabel();
 
     /**
@@ -67,7 +68,7 @@ public interface Thing extends Identifiable<ThingUID> {
      *
      * @param label the human readable label
      */
-    void setLabel(String label);
+    void setLabel(@Nullable String label);
 
     /**
      * Gets the channels.

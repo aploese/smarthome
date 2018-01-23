@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -125,6 +125,13 @@ public class MoonCalc {
         double parentNewMoon = getPreviousPhase(calendar, julianDateEndOfDay, NEW_MOON);
         double age = Math.abs(parentNewMoon - julianDateEndOfDay);
         phase.setAge((int) age);
+
+        long parentNewMoonMillis = DateTimeUtils.toCalendar(parentNewMoon).getTimeInMillis();
+        long ageRangeTimeMillis = phase.getNew().getTimeInMillis() - parentNewMoonMillis;
+        long ageCurrentMillis = System.currentTimeMillis() - parentNewMoonMillis;
+        phase.setAgePercent(ageCurrentMillis * 100.0 / ageRangeTimeMillis);
+        phase.setAgeDegree(3.6 * phase.getAgePercent());
+
         phase.setIllumination(getIllumination(DateTimeUtils.dateToJulianDate(calendar)));
 
         int illumination = (int) phase.getIllumination();

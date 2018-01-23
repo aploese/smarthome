@@ -142,19 +142,25 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements Runnable {
 
     @Override
     public void dispose() {
-        refreshJob.cancel(true);
-        try {
-            oneWireAdapter.close();
-        } catch (Exception e) {
-            // TODO: handle exception
+        if (refreshJob != null) {
+            refreshJob.cancel(true);
         }
-        oneWireAdapter = null;
-        try {
-            serialPortSocket.close();
-        } catch (Exception e) {
-            // TODO: handle exception
+        if (oneWireAdapter != null) {
+            try {
+                oneWireAdapter.close();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            oneWireAdapter = null;
         }
-        serialPortSocket = null;
+        if (serialPortSocket != null) {
+            try {
+                serialPortSocket.close();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+            serialPortSocket = null;
+        }
     }
 
     public void discover(Consumer<OneWireContainer> consumer, boolean init) throws IOException {

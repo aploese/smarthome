@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -86,6 +86,7 @@ public class BindingExtensionHandler implements MarketplaceExtensionHandler {
             installedBindings.put(ext.getId(), bundle.getBundleId());
             persistInstalledBindingsMap(installedBindings);
         } catch (BundleException e) {
+            logger.debug("Failed to install binding from marketplace.", e);
             throw new MarketplaceHandlerException("Binding cannot be installed: " + e.getMessage());
         }
     }

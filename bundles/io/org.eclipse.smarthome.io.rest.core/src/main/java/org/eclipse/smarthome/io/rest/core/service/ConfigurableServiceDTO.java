@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -16,6 +16,7 @@ package org.eclipse.smarthome.io.rest.core.service;
  * {@link ConfigurableServiceDTO} is a data transfer object for configurable services.
  *
  * @author Dennis Nobel - Initial contribution
+ * @author Stefan Triller - added multiple field
  */
 public class ConfigurableServiceDTO {
 
@@ -23,12 +24,15 @@ public class ConfigurableServiceDTO {
     public String label;
     public String category;
     public String configDescriptionURI;
+    public boolean multiple;
 
-    public ConfigurableServiceDTO(String id, String label, String category, String configDescriptionURI) {
+    public ConfigurableServiceDTO(String id, String label, String category, String configDescriptionURI,
+            boolean multiple) {
         this.id = id;
         this.label = label;
         this.category = category;
         this.configDescriptionURI = configDescriptionURI;
+        this.multiple = multiple;
     }
 
 }

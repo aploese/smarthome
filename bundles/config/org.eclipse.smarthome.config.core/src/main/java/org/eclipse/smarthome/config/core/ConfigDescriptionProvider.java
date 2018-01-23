@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -16,6 +16,9 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.Locale;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * The {@link ConfigDescriptionProvider} can be implemented and registered as an <i>OSGi</i>
  * service to provide {@link ConfigDescription}s. The {@link ConfigDescriptionRegistry} tracks
@@ -24,13 +27,13 @@ import java.util.Locale;
  * @author Dennis Nobel - Initial contribution
  * @author Michael Grammling - Initial contribution
  */
+@NonNullByDefault
 public interface ConfigDescriptionProvider {
 
     /**
      * Provides a collection of {@link ConfigDescription}s.
      *
-     * @param locale
-     *            locale
+     * @param locale locale
      * @return the configuration descriptions provided by this provider (not
      *         null, could be empty)
      */
@@ -39,14 +42,12 @@ public interface ConfigDescriptionProvider {
     /**
      * Provides a {@link ConfigDescription} for the given URI.
      *
-     * @param uri
-     *            uri of the config description
-     * @param locale
-     *            locale
+     * @param uri uri of the config description
+     * @param locale locale
      *
-     * @return config description or null if no config description could be
-     *         found
+     * @return config description or null if no config description could be found
      */
+    @Nullable
     ConfigDescription getConfigDescription(URI uri, Locale locale);
 
 }

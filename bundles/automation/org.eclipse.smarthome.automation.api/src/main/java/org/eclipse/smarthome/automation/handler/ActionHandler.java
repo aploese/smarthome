@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -14,6 +14,8 @@ package org.eclipse.smarthome.automation.handler;
 
 import java.util.Map;
 
+import org.eclipse.jdt.annotation.NonNullByDefault;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.smarthome.automation.Action;
 import org.eclipse.smarthome.automation.Rule;
 
@@ -25,6 +27,7 @@ import org.eclipse.smarthome.automation.Rule;
  * @author Ana Dimova - Initial Contribution
  * @author Vasil Ilchev - Initial Contribution
  */
+@NonNullByDefault
 public interface ActionHandler extends ModuleHandler {
 
     /**
@@ -36,6 +39,7 @@ public interface ActionHandler extends ModuleHandler {
      *            in form: ModuleId.outputId
      * @return values map of values which must be set to outputs of the {@link Action} (may be null).
      */
-    public Map<String, Object> execute(Map<String, Object> context);
+    @Nullable
+    Map<String, Object> execute(Map<String, Object> context);
 
 }

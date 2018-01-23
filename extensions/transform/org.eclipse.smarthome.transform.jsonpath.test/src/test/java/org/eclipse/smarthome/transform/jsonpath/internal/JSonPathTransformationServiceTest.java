@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -43,7 +43,7 @@ public class JSonPathTransformationServiceTest {
     }
 
     private static final String jsonArray = "[" + //
-            "{ \"id\":1, \"name\":\"bob\" }," + //
+            "{ \"id\":1, \"name\":\"bob\", \"empty\":null }," + //
             "{ \"id\":2, \"name\":\"alice\" }" + //
             "]";
 
@@ -72,6 +72,12 @@ public class JSonPathTransformationServiceTest {
     @Test(expected = TransformationException.class)
     public void testInvalidJsonReturnNull() throws TransformationException {
         processor.transform("$", "{id:");
+    }
+
+    @Test
+    public void testNullValue() throws TransformationException {
+        String transformedResponse = processor.transform("$[0].empty", jsonArray);
+        assertEquals("NULL", transformedResponse);
     }
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -86,7 +86,7 @@ public class InstanceUUID {
         try {
             lines = IOUtils.readLines(new FileInputStream(file));
         } catch (IOException ioe) {
-            logger.warn("Failed reading the UUID file '{}': ", file.getAbsolutePath(), ioe.getMessage());
+            logger.warn("Failed reading the UUID file '{}': {}", file.getAbsolutePath(), ioe.getMessage());
         }
         return lines != null && lines.size() > 0 ? lines.get(0) : "";
     }

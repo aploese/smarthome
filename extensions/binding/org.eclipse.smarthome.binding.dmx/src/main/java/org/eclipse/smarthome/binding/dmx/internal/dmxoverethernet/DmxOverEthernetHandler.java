@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -108,7 +108,8 @@ public abstract class DmxOverEthernetHandler extends DmxBridgeHandler {
                     try {
                         socket.send(sendPacket);
                     } catch (IOException e) {
-                        logger.debug("Could not send to {} in {}: {}", receiverNode, this.thing.getUID(), e);
+                        logger.debug("Could not send to {} in {}: {}", receiverNode, this.thing.getUID(),
+                                e.getMessage());
                         closeConnection(ThingStatusDetail.COMMUNICATION_ERROR, "could not send DMX data");
                     }
                 }

@@ -40,6 +40,8 @@
     <module>org.eclipse.smarthome.binding.wemo</module>
     <module>org.eclipse.smarthome.binding.wemo.test</module>
     <module>org.eclipse.smarthome.binding.yahooweather</module>
+    <module>org.eclipse.smarthome.binding.fhz4j</module>
+    <module>org.eclipse.smarthome.binding.fhz4j.test</module>
   </modules>
 
 </project>

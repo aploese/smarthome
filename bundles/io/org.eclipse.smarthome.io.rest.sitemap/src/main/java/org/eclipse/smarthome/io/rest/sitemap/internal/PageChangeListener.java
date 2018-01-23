@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -198,10 +198,15 @@ public class PageChangeListener implements StateChangeListener {
                 event.valuecolor = itemUIRegistry.getValueColor(w);
                 event.widgetId = itemUIRegistry.getWidgetId(w);
                 event.visibility = itemUIRegistry.getVisiblity(w);
+                // event.item contains data from the item including its state (in event.item.state)
                 event.item = EnrichedItemDTOMapper.map(item, false, null, null);
 
-                // adjust the state according to the widget type
-                event.item.state = itemUIRegistry.getState(w).toFullString();
+                // event.state is an adjustment of the item state to the widget type.
+                event.state = itemUIRegistry.getState(w).toFullString();
+                // In case this state is identical to the item state, its value is set to null.
+                if (event.state != null && event.state.equals(event.item.state)) {
+                    event.state = null;
+                }
 
                 events.add(event);
             }

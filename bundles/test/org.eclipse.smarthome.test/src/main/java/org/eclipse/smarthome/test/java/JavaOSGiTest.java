@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 
 import org.eclipse.smarthome.core.autoupdate.AutoUpdateBindingConfigProvider;
 import org.eclipse.smarthome.test.OSGiTest;
+import org.eclipse.smarthome.test.internal.java.MissingServiceAnalyzer;
 import org.eclipse.smarthome.test.storage.VolatileStorageService;
 import org.junit.After;
 import org.junit.Assert;
@@ -88,6 +89,11 @@ public class JavaOSGiTest extends JavaTest {
         @SuppressWarnings("unchecked")
         final ServiceReference<T> serviceReference = (ServiceReference<T>) bundleContext
                 .getServiceReference(clazz.getName());
+
+        if (serviceReference == null) {
+            new MissingServiceAnalyzer(System.out, bundleContext).printMissingServiceDetails(clazz);
+            return null;
+        }
 
         return unrefService(serviceReference);
     }
@@ -207,9 +213,9 @@ public class JavaOSGiTest extends JavaTest {
         List<ServiceRegistration<?>> regs = registeredServices.get(interfaceName);
         if (regs == null) {
             regs = new ArrayList<>();
+            registeredServices.put(interfaceName, regs);
         }
         regs.add(srvReg);
-        registeredServices.put(interfaceName, regs);
     }
 
     /**
@@ -257,11 +263,10 @@ public class JavaOSGiTest extends JavaTest {
      */
     protected ServiceRegistration<?> unregisterService(final String interfaceName) {
         ServiceRegistration<?> reg = null;
-        List<ServiceRegistration<?>> regList = registeredServices.get(interfaceName);
+        List<ServiceRegistration<?>> regList = registeredServices.remove(interfaceName);
         if (regList != null) {
             reg = regList.get(0);
             regList.forEach(r -> r.unregister());
-            registeredServices.remove(interfaceName);
         }
         return reg;
     }

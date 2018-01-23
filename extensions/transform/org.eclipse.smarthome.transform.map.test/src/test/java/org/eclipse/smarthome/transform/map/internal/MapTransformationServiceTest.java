@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -97,8 +97,7 @@ public class MapTransformationServiceTest {
                 }
             }, 10000, 100);
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            e1.printStackTrace(System.err);
         }
 
         // Checks that an unknown input in an existing file give the expected

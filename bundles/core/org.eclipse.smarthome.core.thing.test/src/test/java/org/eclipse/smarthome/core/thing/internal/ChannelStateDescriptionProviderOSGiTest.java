@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -17,6 +17,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -68,8 +69,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.osgi.service.component.ComponentContext;
-
-import com.google.common.collect.ImmutableList;
 
 /**
  * Tests for {@link ChannelStateDescriptionProvider}.
@@ -161,8 +160,8 @@ public class ChannelStateDescriptionProviderOSGiTest extends JavaOSGiTest {
 
         registerService(new DynamicStateDescriptionProvider() {
             final StateDescription newState = new StateDescription(BigDecimal.valueOf(10), BigDecimal.valueOf(100),
-                    BigDecimal.valueOf(5), "VALUE %d", false, ImmutableList.<StateOption> builder()
-                            .add(new StateOption("value0", "label0")).add(new StateOption("value1", "label1")).build());
+                    BigDecimal.valueOf(5), "VALUE %d", false,
+                    Arrays.asList(new StateOption("value0", "label0"), new StateOption("value1", "label1")));
 
             @Override
             public @Nullable StateDescription getStateDescription(@NonNull Channel channel,
@@ -404,7 +403,7 @@ public class ChannelStateDescriptionProviderOSGiTest extends JavaOSGiTest {
     }
 
     class TestItemProvider implements ItemProvider {
-        private Collection<Item> items;
+        private final Collection<Item> items;
 
         TestItemProvider(Collection<Item> items) {
             this.items = items;

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -116,12 +116,12 @@ public class MqttBrokerConnection {
                 final List<MqttMessageSubscriber> consumerList = entry.getValue();
 
                 if (topic.matches(target)) {
-                    logger.trace("Topic match for '{}' and '{}' using regex {}", topic, target);
+                    logger.trace("Topic match for '{}' using regex {}", topic, target);
                     for (MqttMessageSubscriber consumer : consumerList) {
                         consumer.processMessage(topic, message.getPayload());
                     }
                 } else {
-                    logger.trace("No topic match for '{}' and '{}' using regex {}", topic, target);
+                    logger.trace("No topic match for '{}' using regex {}", topic, target);
                 }
             }
         }

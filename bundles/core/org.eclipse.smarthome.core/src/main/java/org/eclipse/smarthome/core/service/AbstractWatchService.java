@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -103,21 +103,6 @@ public abstract class AbstractWatchService {
      *         done.
      */
     protected abstract Kind<?>[] getWatchEventKinds(Path directory);
-
-    /**
-     * If the queue reader is watching the directory changes, all the watch events will be processed. Otherwise the
-     * events for changed directories will be skipped. For example, on some platforms an event for modified directory is
-     * generated when a new file is created within the directory. However, this behavior could vary a lot, depending on
-     * the platform (for more information see "Platform dependencies" section in the {@link WatchService} documentation)
-     *
-     * @param directory
-     *
-     * @param watchDirectoryChanges set to <code>true</code> if the directory events have to be processed and
-     *            <code>false</code> otherwise
-     */
-    protected boolean getWatchingDirectoryChanges(Path directory) {
-        return true;
-    }
 
     /**
      * Processes the given watch event. Note that the kind and the number of the events for the watched directory is a

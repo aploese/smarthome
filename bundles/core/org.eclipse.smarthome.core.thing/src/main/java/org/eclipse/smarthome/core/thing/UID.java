@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -13,8 +13,7 @@
 package org.eclipse.smarthome.core.thing;
 
 import java.util.Arrays;
-
-import com.google.common.base.Joiner;
+import java.util.stream.Collectors;
 
 /**
  * {@link UID} is the base class for unique identifiers within the SmartHome
@@ -28,7 +27,7 @@ public abstract class UID {
 
     public static final String SEGMENT_PATTERN = "[A-Za-z0-9_-]*";
     public static final String SEPARATOR = ":";
-    private String[] segments;
+    private final String[] segments;
 
     /**
      * Constructor must be public, otherwise it can not be called by subclasses from another package.
@@ -113,7 +112,7 @@ public abstract class UID {
     }
 
     public String getAsString() {
-        return Joiner.on(SEPARATOR).join(segments);
+        return Arrays.stream(segments).collect(Collectors.joining(SEPARATOR));
     }
 
     @Override

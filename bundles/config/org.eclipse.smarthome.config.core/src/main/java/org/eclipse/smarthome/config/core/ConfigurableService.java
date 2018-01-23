@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -48,5 +48,10 @@ public interface ConfigurableService {
      * The category of the service to be configured (e.g. binding).
      */
     public static final String SERVICE_PROPERTY_CATEGORY = "service.config.category";
+
+    /**
+     * Marker for multiple configurations for this service ("true" = multiple configurations possible)
+     */
+    public static final String SERVICE_PROPERTY_FACTORY_SERVICE = "esh.factoryservice";
 
 }

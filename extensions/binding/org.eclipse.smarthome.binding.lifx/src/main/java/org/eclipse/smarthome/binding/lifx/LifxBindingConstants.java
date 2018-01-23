@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -76,6 +76,8 @@ public class LifxBindingConstants {
 
     // Config property for channel configuration
     public static final String CONFIG_PROPERTY_POWER_ON_BRIGHTNESS = "powerOnBrightness";
+    public static final String CONFIG_PROPERTY_POWER_ON_COLOR = "powerOnColor";
+    public static final String CONFIG_PROPERTY_POWER_ON_TEMPERATURE = "powerOnTemperature";
 
     // Property keys
     public static final String PROPERTY_HOST = "host";

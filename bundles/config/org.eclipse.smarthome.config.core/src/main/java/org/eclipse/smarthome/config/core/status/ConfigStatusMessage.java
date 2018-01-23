@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -13,8 +13,7 @@
 package org.eclipse.smarthome.config.core.status;
 
 import java.util.Arrays;
-
-import com.google.common.base.Preconditions;
+import java.util.Objects;
 
 /**
  * The {@link ConfigStatusMessage} is a domain object for a configuration status message. It contains the name
@@ -143,8 +142,8 @@ public final class ConfigStatusMessage {
         private Integer statusCode;
 
         private Builder(String parameterName, Type type) {
-            Preconditions.checkNotNull(parameterName, "Parameter name must not be null.");
-            Preconditions.checkNotNull(type, "Type must not be null.");
+            Objects.requireNonNull(parameterName, "Parameter name must not be null.");
+            Objects.requireNonNull(type, "Type must not be null.");
             this.parameterName = parameterName;
             this.type = type;
         }

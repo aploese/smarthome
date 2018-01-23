@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -26,8 +26,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ReferenceCardinality;
 import org.osgi.service.component.annotations.ReferencePolicy;
-
-import com.google.common.collect.Lists;
 
 /**
  * The {@link ThingTypeRegistry} tracks all {@link ThingType}s provided by registered {@link ThingTypeProvider}s.
@@ -75,7 +73,7 @@ public class ThingTypeRegistry {
      * @return thing types for given binding id
      */
     public List<ThingType> getThingTypes(String bindingId, Locale locale) {
-        List<ThingType> thingTypesForBinding = Lists.newArrayList();
+        List<ThingType> thingTypesForBinding = new ArrayList<>();
 
         for (ThingType thingType : getThingTypes()) {
             if (thingType.getBindingId().equals(bindingId)) {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -25,8 +25,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.Constants;
 import org.osgi.framework.InvalidSyntaxException;
 import org.osgi.framework.ServiceReference;
-
-import com.google.common.collect.Lists;
 
 public class HttpServiceUtilTest {
 
@@ -93,7 +91,6 @@ public class HttpServiceUtilTest {
         assertThat(undfinedPort, is(-1));
     }
 
-    @SuppressWarnings("unchecked")
     private ServiceReference<?>[] getHttpServiceReferences() {
         ServiceReference<?> ref1 = mock(ServiceReference.class);
         when(ref1.getProperty(HTTP_PORT)).thenReturn("8081");
@@ -103,10 +100,9 @@ public class HttpServiceUtilTest {
         when(ref2.getProperty(HTTP_PORT)).thenReturn("8080");
         when(ref2.getProperty(Constants.SERVICE_RANKING)).thenReturn("100");
 
-        return Lists.newArrayList(ref1, ref2).toArray(new ServiceReference[0]);
+        return new ServiceReference[] { ref1, ref2 };
     }
 
-    @SuppressWarnings("unchecked")
     private ServiceReference<?>[] getSecureHttpServiceReferences() {
         ServiceReference<?> ref1 = mock(ServiceReference.class);
         when(ref1.getProperty(HTTP_PORT_SECURE)).thenReturn("48081");
@@ -116,7 +112,7 @@ public class HttpServiceUtilTest {
         when(ref2.getProperty(HTTP_PORT_SECURE)).thenReturn("48080");
         when(ref2.getProperty(Constants.SERVICE_RANKING)).thenReturn("2");
 
-        return Lists.newArrayList(ref1, ref2).toArray(new ServiceReference[0]);
+        return new ServiceReference[] { ref1, ref2 };
     }
 
 }

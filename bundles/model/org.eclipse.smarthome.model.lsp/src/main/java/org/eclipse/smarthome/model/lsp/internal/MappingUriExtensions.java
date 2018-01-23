@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -103,7 +103,7 @@ public class MappingUriExtensions extends UriExtensions {
         return URI.createURI(super.toPath(javaNetUri));
     }
 
-    private String removeTrailingSlash(String path) {
+    protected final String removeTrailingSlash(String path) {
         if (path.endsWith("/")) {
             return path.substring(0, path.length() - 1);
         } else {

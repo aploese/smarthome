@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -456,7 +456,10 @@ public final class PersistentInbox implements Inbox, DiscoveryListener, ThingReg
                 logger.error(errorMessage, ex);
             }
         }
-        postEvent(result, type);
+
+        // in case of EventType added/updated the listeners might have modified the result in the discoveryResultStorage
+        DiscoveryResult resultForEvent = type == EventType.removed ? result : get(result.getThingUID());
+        postEvent(resultForEvent, type);
     }
 
     private void postEvent(DiscoveryResult result, EventType eventType) {

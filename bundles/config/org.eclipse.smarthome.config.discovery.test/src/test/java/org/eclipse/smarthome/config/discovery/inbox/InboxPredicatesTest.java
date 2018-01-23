@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -14,8 +14,9 @@ package org.eclipse.smarthome.config.discovery.inbox;
 
 import static org.eclipse.smarthome.config.discovery.inbox.InboxPredicates.*;
 import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,7 +29,6 @@ import org.eclipse.smarthome.core.thing.ThingUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 /**
@@ -65,16 +65,15 @@ public class InboxPredicatesTest {
     private final static Map<String, Object> PROPS2 = new ImmutableMap.Builder<String, Object>().put(PROP2, PROP_VAL2)
             .build();
 
-    private final static List<DiscoveryResultImpl> results = new ImmutableList.Builder<DiscoveryResultImpl>()
-            .add(new DiscoveryResultImpl(THING_TYPE_UID11, THING_UID11, null, PROPS1, PROP1, "label",
-                    DiscoveryResult.TTL_UNLIMITED))
-            .add(new DiscoveryResultImpl(THING_TYPE_UID11, THING_UID12, null, PROPS1, null, "label",
-                    DiscoveryResult.TTL_UNLIMITED))
-            .add(new DiscoveryResultImpl(THING_TYPE_UID12, THING_UID12, null, PROPS2, PROP2, "label",
-                    DiscoveryResult.TTL_UNLIMITED))
-            .add(new DiscoveryResultImpl(THING_TYPE_UID21, THING_UID22, null, PROPS2, null, "label",
-                    DiscoveryResult.TTL_UNLIMITED))
-            .build();
+    private final static List<DiscoveryResultImpl> results = Arrays.asList(
+            new DiscoveryResultImpl(THING_TYPE_UID11, THING_UID11, null, PROPS1, PROP1, "label",
+                    DiscoveryResult.TTL_UNLIMITED),
+            new DiscoveryResultImpl(THING_TYPE_UID11, THING_UID12, null, PROPS1, null, "label",
+                    DiscoveryResult.TTL_UNLIMITED),
+            new DiscoveryResultImpl(THING_TYPE_UID12, THING_UID12, null, PROPS2, PROP2, "label",
+                    DiscoveryResult.TTL_UNLIMITED),
+            new DiscoveryResultImpl(THING_TYPE_UID21, THING_UID22, null, PROPS2, null, "label",
+                    DiscoveryResult.TTL_UNLIMITED));
 
     @Before
     public void setUp() throws Exception {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -46,7 +46,7 @@ abstract class AbstractExpressionPart implements ExpressionPart {
     }
 
     /**
-     * @param set the set of values that the epxression part should take into consideration
+     * @param set the set of values that the expression part should take into consideration
      */
     public void setValueSet(BoundedIntegerSet set) {
         this.valueSet = set;

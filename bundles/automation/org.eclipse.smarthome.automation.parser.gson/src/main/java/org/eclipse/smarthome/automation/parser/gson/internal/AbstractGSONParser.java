@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -22,6 +22,8 @@ import org.eclipse.smarthome.automation.type.CompositeActionType;
 import org.eclipse.smarthome.automation.type.CompositeConditionType;
 import org.eclipse.smarthome.automation.type.CompositeTriggerType;
 import org.eclipse.smarthome.config.core.Configuration;
+import org.eclipse.smarthome.config.core.ConfigurationDeserializer;
+import org.eclipse.smarthome.config.core.ConfigurationSerializer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

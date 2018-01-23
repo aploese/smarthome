@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -61,7 +61,7 @@ import org.slf4j.LoggerFactory;
 
 public class NtpHandler extends BaseThingHandler {
 
-    private Logger logger = LoggerFactory.getLogger(NtpHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(NtpHandler.class);
 
     /** timeout for requests to the NTP server */
     private static final int NTP_TIMEOUT = 30000;
@@ -226,11 +226,13 @@ public class NtpHandler extends BaseThingHandler {
             timeClient.setDefaultTimeout(NTP_TIMEOUT);
             InetAddress inetAddress = InetAddress.getByName(hostname);
             TimeInfo timeInfo = timeClient.getTime(inetAddress, port.intValue());
+            timeInfo.computeDetails();
 
+            long serverMillis = timeInfo.getReturnTime() + timeInfo.getOffset();
             logger.debug("{} Got time update from host '{}': {}.", getThing().getUID(), hostname,
-                    SDF.format(new Date(timeInfo.getReturnTime())));
+                    SDF.format(new Date(serverMillis)));
             updateStatus(ThingStatus.ONLINE, ThingStatusDetail.NONE);
-            return timeInfo.getReturnTime();
+            return serverMillis;
         } catch (UnknownHostException uhe) {
             logger.debug(
                     "{} The given hostname '{}' of the timeserver is unknown -> returning current sytem time instead. ({})",

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -12,6 +12,7 @@
  */
 package org.eclipse.smarthome.model.thing.test.hue;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.eclipse.smarthome.config.core.Configuration;
@@ -22,8 +23,6 @@ import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory;
 import org.osgi.service.component.ComponentContext;
-
-import com.google.common.collect.Sets;
 
 /**
  * {@link ThingHandlerFactory} that can be switched into <code>dumb</code> mode
@@ -39,7 +38,7 @@ public class DumbThingHandlerFactory extends BaseThingHandlerFactory {
 
     public final static ThingTypeUID THING_TYPE_TEST = new ThingTypeUID(BINDING_ID, "DUMB");
 
-    public final static Set<ThingTypeUID> SUPPORTED_THING_TYPES = Sets.newHashSet(THING_TYPE_TEST);
+    public final static Set<ThingTypeUID> SUPPORTED_THING_TYPES = Collections.singleton(THING_TYPE_TEST);
 
     private boolean dumb;
 

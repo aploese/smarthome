@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014,2017 Contributors to the Eclipse Foundation
+ * Copyright (c) 2014,2018 Contributors to the Eclipse Foundation
  *
  * See the NOTICE file(s) distributed with this work for additional
  * information regarding copyright ownership.
@@ -35,8 +35,8 @@ import org.eclipse.smarthome.core.thing.type.ChannelTypeUID;
 @NonNullByDefault
 public class ChannelBuilder {
 
-    private ChannelUID channelUID;
-    private @Nullable String acceptedItemType;
+    private final ChannelUID channelUID;
+    private @Nullable final String acceptedItemType;
     private ChannelKind kind;
     private @Nullable Configuration configuration;
     private Set<String> defaultTags;

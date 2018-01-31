@@ -29,6 +29,8 @@ public class FHZ4JBindingConstants {
     // List of all Thing Type UIDs
     public static final ThingTypeUID THING_TYPE_FHZ4J_RADIATOR_FHT80B = new ThingTypeUID(BINDING_ID, "fht80b");
     public static final ThingTypeUID THING_TYPE_FHZ4J_UNKNOWN = new ThingTypeUID(BINDING_ID, "unknown");
+    public static final ThingTypeUID THING_TYPE_FHZ4J_EM_1000_EM = new ThingTypeUID(BINDING_ID, "em-1000-em");
+    public static final ThingTypeUID THING_TYPE_FHZ4J_HMS_100_TF = new ThingTypeUID(BINDING_ID, "hms-100-tf");
 
     // List of all Bridge Type UIDs
     public static final ThingTypeUID BRIDGE_TYPE_FHZ4J_RS232 = new ThingTypeUID(BINDING_ID, "rs232-bridge-cul");
@@ -37,6 +39,7 @@ public class FHZ4JBindingConstants {
     public static final String CHANNEL_MODE = "mode";
     public static final String CHANNEL_BATT_LOW = "low-battery";
     public static final String CHANNEL_TEMPERATURE_MEASURED = "temperatureMeasured";
+    public static final String CHANNEL_HUMIDITY_MEASURED = "humidityMeasured";
     public static final String CHANNEL_TEMPERATURE_DESIRED = "temperatureDesired";
     public static final String CHANNEL_TEMPERATURE_DAY = "temperatureDay";
     public static final String CHANNEL_TEMPERATURE_NIGHT = "temperatureNight";
@@ -55,4 +58,7 @@ public class FHZ4JBindingConstants {
     public static final String CHANNEL_SATURDAY = "saturday";
     public static final String CHANNEL_SUNDAY = "sunday";
 
+    public static final String CHANNEL_ENERGY_TOTAL = "energyTotal";
+    public static final String CHANNEL_POWER_5MINUTES = "power5Minutes";
+    public static final String CHANNEL_MAX_POWER_5MINUTES = "maxPower5Minutes";
 }

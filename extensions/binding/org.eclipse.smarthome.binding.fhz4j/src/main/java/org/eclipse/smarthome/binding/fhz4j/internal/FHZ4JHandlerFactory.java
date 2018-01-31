@@ -19,6 +19,8 @@ import java.util.Set;
 
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.smarthome.binding.fhz4j.FHZ4JBindingConstants;
+import org.eclipse.smarthome.binding.fhz4j.handler.Em1000EmHandler;
+import org.eclipse.smarthome.binding.fhz4j.handler.Hms100TfHandler;
 import org.eclipse.smarthome.binding.fhz4j.handler.RadiatorFht80bHandler;
 import org.eclipse.smarthome.binding.fhz4j.handler.SpswBridgeHandler;
 import org.eclipse.smarthome.binding.fhz4j.handler.UnknownDeviceHandler;
@@ -47,8 +49,9 @@ import de.ibapl.spsw.api.SerialPortSocketFactory;
 @Component(service = ThingHandlerFactory.class, immediate = true, configurationPid = "binding.onewire4j")
 public class FHZ4JHandlerFactory extends BaseThingHandlerFactory {
 
-    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet
-            .of(FHZ4JBindingConstants.THING_TYPE_FHZ4J_RADIATOR_FHT80B, FHZ4JBindingConstants.BRIDGE_TYPE_FHZ4J_RS232);
+    private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(
+            FHZ4JBindingConstants.THING_TYPE_FHZ4J_RADIATOR_FHT80B, FHZ4JBindingConstants.BRIDGE_TYPE_FHZ4J_RS232,
+            FHZ4JBindingConstants.THING_TYPE_FHZ4J_EM_1000_EM, FHZ4JBindingConstants.THING_TYPE_FHZ4J_HMS_100_TF);
 
     // TODO @Reference
     private final SerialPortSocketFactory serialPortSocketFactory = de.ibapl.spsw.provider.SerialPortSocketFactoryImpl
@@ -67,6 +70,12 @@ public class FHZ4JHandlerFactory extends BaseThingHandlerFactory {
 
         if (thingTypeUID.equals(FHZ4JBindingConstants.THING_TYPE_FHZ4J_RADIATOR_FHT80B)) {
             return new RadiatorFht80bHandler(thing);
+        } else if (thingTypeUID.equals(FHZ4JBindingConstants.THING_TYPE_FHZ4J_EM_1000_EM)) {
+            final Em1000EmHandler em1000EmHandler = new Em1000EmHandler(thing);
+            return em1000EmHandler;
+        } else if (thingTypeUID.equals(FHZ4JBindingConstants.THING_TYPE_FHZ4J_HMS_100_TF)) {
+            final Hms100TfHandler hms100TkHandler = new Hms100TfHandler(thing);
+            return hms100TkHandler;
         } else if (thingTypeUID.equals(FHZ4JBindingConstants.BRIDGE_TYPE_FHZ4J_RS232)) {
             final SpswBridgeHandler spswBridgeHandler = new SpswBridgeHandler((Bridge) thing, serialPortSocketFactory);
             registerDiscoveryService(spswBridgeHandler);

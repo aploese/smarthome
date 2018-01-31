@@ -15,6 +15,8 @@ package org.eclipse.smarthome.binding.fhz4j.handler;
 import static org.eclipse.smarthome.binding.fhz4j.FHZ4JBindingConstants.*;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
@@ -118,6 +120,41 @@ public class RadiatorFht80bHandler extends BaseThingHandler {
                     // updateState(new ChannelUID(getThing().getUID(), CHANNEL_TEMPERATURE), new DecimalType(00.00));
                 }
                 break;
+            case CHANNEL_MONDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.MONDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_TUESDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.TUESDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_WEDNESDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.WEDNESDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_THURSDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.THURSDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_FRIDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.FRIDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_SATURDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.SATURDAY, (StringType) command);
+                }
+                break;
+            case CHANNEL_SUNDAY:
+                if (command instanceof StringType) {
+                    sendCycle(DayOfWeek.SUNDAY, (StringType) command);
+                }
+                break;
             case CHANNEL_VALVE_POSITION:
                 if (command instanceof RefreshType) {
                     // updateState(new ChannelUID(getThing().getUID(), CHANNEL_VALVE_POSITION), new DecimalType(22.22));
@@ -125,6 +162,30 @@ public class RadiatorFht80bHandler extends BaseThingHandler {
                 break;
             default:
         }
+    }
+
+    private void sendCycle(DayOfWeek dayOfWeek, @NonNull StringType command) {
+        String value = command.toString();
+
+        // TIME_FORMATTER.parse("12:00-134:00 15:00-18:00", new ParsePosition(0)).query(LocalTime::from);
+        String val = value.substring(0, 5);
+        final LocalTime from1 = TIME_NOT_SET.equals(val) ? null : TIME_FORMATTER.parse(val, LocalTime::from);
+
+        val = value.substring(6, 11);
+        LocalTime to1 = TIME_NOT_SET.equals(val) ? null : TIME_FORMATTER.parse(val, LocalTime::from);
+        val = value.substring(12, 17);
+        LocalTime from2 = TIME_NOT_SET.equals(val) ? null : TIME_FORMATTER.parse(val, LocalTime::from);
+        val = value.substring(18, 23);
+        LocalTime to2 = TIME_NOT_SET.equals(val) ? null : TIME_FORMATTER.parse(val, LocalTime::from);
+
+        try {
+            ((SpswBridgeHandler) (getBridge().getHandler())).sendFhtMessage(housecode, dayOfWeek, from1, to1, from2,
+                    to2);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 
     @Override

@@ -43,7 +43,7 @@ public class FHZ4JDiscoveryService extends AbstractDiscoveryService implements F
 
     private final Logger logger = LoggerFactory.getLogger(FHZ4JDiscoveryService.class);
 
-    private final static int SEARCH_TIME = 120;
+    private final static int SEARCH_TIME = 15 * 60; // 15 minutes FHT80 sends all 120 sec, HMS 100 TF all 10 min.
 
     private final SpswBridgeHandler spswBridgeHandler;
 
@@ -74,6 +74,34 @@ public class FHZ4JDiscoveryService extends AbstractDiscoveryService implements F
         stopScan();
     }
 
+    private void addHms100TfDevice(short housecode) {
+        final ThingUID bridgeUID = spswBridgeHandler.getThing().getUID();
+        final String deviceIdStr = Short.toString(housecode);
+        final ThingUID thingUID = getThingUID(deviceIdStr, bridgeUID,
+                FHZ4JBindingConstants.THING_TYPE_FHZ4J_HMS_100_TF);
+
+        DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(thingUID)
+                .withThingType(FHZ4JBindingConstants.THING_TYPE_FHZ4J_HMS_100_TF).withProperty("housecode", housecode)
+                .withBridge(bridgeUID).withRepresentationProperty(Short.toString(housecode))
+                .withLabel("HMS 100 TF " + housecode).build();
+
+        thingDiscovered(discoveryResult);
+    }
+
+    private void addEm1000EmDevice(short address) {
+        final ThingUID bridgeUID = spswBridgeHandler.getThing().getUID();
+        final String deviceIdStr = Short.toString(address);
+        final ThingUID thingUID = getThingUID(deviceIdStr, bridgeUID,
+                FHZ4JBindingConstants.THING_TYPE_FHZ4J_EM_1000_EM);
+
+        DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(thingUID)
+                .withThingType(FHZ4JBindingConstants.THING_TYPE_FHZ4J_EM_1000_EM).withProperty("address", address)
+                .withBridge(bridgeUID).withRepresentationProperty(Short.toString(address))
+                .withLabel("EM 1000 EM " + address).build();
+
+        thingDiscovered(discoveryResult);
+    }
+
     private void addFhtDevice(short housecode) {
         final ThingUID bridgeUID = spswBridgeHandler.getThing().getUID();
         final String deviceIdStr = Short.toString(housecode);
@@ -93,9 +121,14 @@ public class FHZ4JDiscoveryService extends AbstractDiscoveryService implements F
     }
 
     @Override
-    public void emDataParsed(@Nullable EmMessage arg0) {
-        // TODO Auto-generated method stub
-
+    public void emDataParsed(@Nullable EmMessage emMsg) {
+        switch (emMsg.emDeviceType) {
+            case EM_1000_EM:
+                addEm1000EmDevice(emMsg.address);
+                break;
+            default:
+                throw new RuntimeException("EM 1000 TYpe " + emMsg.emDeviceType + " not implemented yet");
+        }
     }
 
     @Override
@@ -122,9 +155,14 @@ public class FHZ4JDiscoveryService extends AbstractDiscoveryService implements F
     }
 
     @Override
-    public void hmsDataParsed(@Nullable HmsMessage arg0) {
-        // TODO Auto-generated method stub
-
+    public void hmsDataParsed(@Nullable HmsMessage hmsMsg) {
+        switch (hmsMsg.hmsDeviceType) {
+            case HMS_100_TF:
+                addHms100TfDevice(hmsMsg.housecode);
+                break;
+            default:
+                throw new RuntimeException("HMS TYpe " + hmsMsg.hmsDeviceType + " not implemented yet");
+        }
     }
 
     @Override

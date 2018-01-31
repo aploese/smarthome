@@ -16,6 +16,8 @@ import static org.eclipse.smarthome.binding.fhz4j.FHZ4JBindingConstants.THING_TY
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -76,6 +78,8 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
     private CulParser<FhzMessage> culParser;
     private CulWriter culWriter;
     private final Map<Short, RadiatorFht80bHandler> fhtThingHandler = new HashMap<>();
+    private final Map<Short, Hms100TfHandler> hmsThingHandler = new HashMap<>();
+    private final Map<Short, Em1000EmHandler> emThingHandler = new HashMap<>();
     private FhzDataListener discoveryListener;
 
     public SpswBridgeHandler(Bridge bridge, SerialPortSocketFactory serialPortSocketFactory) {
@@ -96,12 +100,23 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
         if (childHandler instanceof RadiatorFht80bHandler) {
             final RadiatorFht80bHandler rfh = (RadiatorFht80bHandler) childHandler;
             fhtThingHandler.put(rfh.getHousecode(), rfh);
+            logger.info("Added FHT 80B " + rfh.getHousecode());
             try {
                 culWriter.initFhtReporting(rfh.getHousecode());
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        } else if (childHandler instanceof Em1000EmHandler) {
+            final Em1000EmHandler emh = (Em1000EmHandler) childHandler;
+            emThingHandler.put(emh.getAddress(), emh);
+            logger.info("Added EM 1000 EM " + emh.getAddress());
+        } else if (childHandler instanceof Hms100TfHandler) {
+            final Hms100TfHandler hmsh = (Hms100TfHandler) childHandler;
+            hmsThingHandler.put(hmsh.getHousecode(), hmsh);
+            logger.info("Added HMS 100 TF " + hmsh.getHousecode());
+        } else {
+            // TODO
         }
     }
 
@@ -111,6 +126,14 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
         if (childHandler instanceof RadiatorFht80bHandler) {
             final RadiatorFht80bHandler rfh = (RadiatorFht80bHandler) childHandler;
             fhtThingHandler.remove(rfh.getHousecode());
+        } else if (childHandler instanceof Em1000EmHandler) {
+            final Em1000EmHandler emh = (Em1000EmHandler) childHandler;
+            emThingHandler.remove(emh.getAddress());
+        } else if (childHandler instanceof Hms100TfHandler) {
+            final Hms100TfHandler hmsh = (Hms100TfHandler) childHandler;
+            hmsThingHandler.remove(hmsh.getHousecode());
+        } else {
+            // TODO
         }
     }
 
@@ -129,6 +152,8 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
         serialPortSocket = serialPortSocketFactory.createSerialPortSocket(port);
 
         fhtThingHandler.clear();
+        emThingHandler.clear();
+        hmsThingHandler.clear();
 
         try {
             culParser = new CulParser<FhzMessage>(this);
@@ -158,28 +183,43 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
 
     @Override
     public void dispose() {
+        if (refreshJob != null) {
+            refreshJob.cancel(true);
+        }
         final CulParser<FhzMessage> cp = culParser;
-        refreshJob.cancel(true);
-        try {
-            cp.close();
-        } catch (Exception e) {
-            // TODO: handle exception
+        if (cp != null) {
+            try {
+                cp.close();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
         culParser = null;
         culWriter = null;
-        try {
-            serialPortSocket.close();
-        } catch (Exception e) {
-            // TODO: handle exception
+        if (serialPortSocket != null) {
+            try {
+                serialPortSocket.close();
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
         serialPortSocket = null;
         fhtThingHandler.clear();
+        emThingHandler.clear();
+        hmsThingHandler.clear();
     }
 
     @Override
-    public void emDataParsed(EmMessage arg0) {
-        // TODO Auto-generated method stub
-
+    public void emDataParsed(EmMessage emMsg) {
+        final Em1000EmHandler emh = emThingHandler.get(emMsg.address);
+        if (emh == null) {
+            // Discovery
+            if (discoveryListener != null) {
+                discoveryListener.emDataParsed(emMsg);
+            }
+            return;
+        }
+        emh.updateFromMsg(emMsg);
     }
 
     @Override
@@ -214,9 +254,16 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
     }
 
     @Override
-    public void hmsDataParsed(HmsMessage arg0) {
-        // TODO Auto-generated method stub
-
+    public void hmsDataParsed(HmsMessage hmsMsg) {
+        final Hms100TfHandler hmsh = hmsThingHandler.get(hmsMsg.housecode);
+        if (hmsh == null) {
+            // Discovery
+            if (discoveryListener != null) {
+                discoveryListener.hmsDataParsed(hmsMsg);
+            }
+            return;
+        }
+        hmsh.updateFromMsg(hmsMsg);
     }
 
     @Override
@@ -235,6 +282,11 @@ public class SpswBridgeHandler extends BaseBridgeHandler implements FhzDataListe
 
     public void sendFhtMessage(short housecode, FhtProperty fhtProperty, float value) throws IOException {
         culWriter.writeFht(housecode, fhtProperty, value);
+    }
+
+    public void sendFhtMessage(short housecode, DayOfWeek dayOfWeek, LocalTime from1, LocalTime to1, LocalTime from2,
+            LocalTime to2) throws IOException {
+        culWriter.writeFhtCycle(housecode, dayOfWeek, from1, to1, from2, to2);
     }
 
     @Override

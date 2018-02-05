@@ -6,26 +6,18 @@
 	<!-- Sample Thing Type -->
 	<thing-type id="fht80b">
 		<supported-bridge-type-refs>
-			<bridge-type-ref id="rs232-bridge" />
+			<bridge-type-ref id="rs232-bridge-cul" />
 		</supported-bridge-type-refs>
 
 		<label>FHZ4J Radiator Binding Thing</label>
-		<description>Temperature thing for OneWire4J binding</description>
+		<description>Fht80b binding</description>
 
 		<channels>
 			<channel id="temperatureMeasured" typeId="temperatureMeasured" />
-			<channel id="temperatureDesired" typeId="temperatureDesired">
-				<label>Desired temperature</label>
-			</channel>
-			<channel id="temperatureDay" typeId="temperatureDesired">
-				<label>Day temperature</label>
-			</channel>
-			<channel id="temperatureNight" typeId="temperatureDesired">
-				<label>Night temperature</label>
-			</channel>
-			<channel id="temperatureWindowOpen" typeId="temperatureDesired">
-				<label>Window open temperature</label>
-			</channel>
+			<channel id="temperatureDesired" typeId="temperatureDesired" />
+			<channel id="dayTemperature" typeId="dayTemperature" />
+			<channel id="nightTemperature" typeId="nightTemperature" />
+			<channel id="windowOpenTemperature" typeId="windowOpenTemperature" />
 
 			<channel id="valveAllowLowBattBeep" typeId="valveAllowLowBattBeep" />
 			<channel id="valvePos" typeId="valvePos" />
@@ -41,25 +33,25 @@
                 <label>Party End</label>
             </channel>
 
-			<channel id="monday" typeId="switchTimes">
+			<channel id="mondaySwitchTimes" typeId="switchTimes">
 				<label>Monday</label>
 			</channel>
-			<channel id="tuesday" typeId="switchTimes">
+			<channel id="tuesdaySwitchTimes" typeId="switchTimes">
 				<label>Tuesday</label>
 			</channel>
-            <channel id="wednesday" typeId="switchTimes">
+            <channel id="wednesdaySwitchTimes" typeId="switchTimes">
                 <label>Wednesday</label>
             </channel>
-            <channel id="thursday" typeId="switchTimes">
+            <channel id="thursdaySwitchTimes" typeId="switchTimes">
                 <label>Thursday</label>
             </channel>
-            <channel id="friday" typeId="switchTimes">
+            <channel id="fridaySwitchTimes" typeId="switchTimes">
                 <label>Friday</label>
             </channel>
-            <channel id="saturday" typeId="switchTimes">
+            <channel id="saturdaySwitchTimes" typeId="switchTimes">
                 <label>Saturday</label>
             </channel>
-            <channel id="sunday" typeId="switchTimes">
+            <channel id="sundaySwitchTimes" typeId="switchTimes">
                 <label>Sunday</label>
             </channel>
 

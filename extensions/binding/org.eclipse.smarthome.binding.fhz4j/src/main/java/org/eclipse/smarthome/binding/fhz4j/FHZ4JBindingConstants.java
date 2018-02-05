@@ -41,22 +41,22 @@ public class FHZ4JBindingConstants {
     public static final String CHANNEL_TEMPERATURE_MEASURED = "temperatureMeasured";
     public static final String CHANNEL_HUMIDITY_MEASURED = "humidityMeasured";
     public static final String CHANNEL_TEMPERATURE_DESIRED = "temperatureDesired";
-    public static final String CHANNEL_TEMPERATURE_DAY = "temperatureDay";
-    public static final String CHANNEL_TEMPERATURE_NIGHT = "temperatureNight";
-    public static final String CHANNEL_TEMPERATURE_WINDOW_OPEN = "temperatureWindowOpen";
+    public static final String CHANNEL_TEMPERATURE_DAY = "dayTemperature";
+    public static final String CHANNEL_TEMPERATURE_NIGHT = "nightTemperature";
+    public static final String CHANNEL_TEMPERATURE_WINDOW_OPEN = "windowOpenTemperature";
     public static final String CHANNEL_VALVE_POSITION = "valvePos";
     public static final String CHANNEL_VALVE_ALLOW_LOW_BATT_BEEP = "valveAllowLowBattBeep";
 
     public static final String CHANNEL_HOLLYDAY_END_DATE = "hollydayEndDate";
     public static final String CHANNEL_PARTY_END_TIME = "partyEndTime";
 
-    public static final String CHANNEL_MONDAY = "monday";
-    public static final String CHANNEL_TUESDAY = "tuesday";
-    public static final String CHANNEL_WEDNESDAY = "wednesday";
-    public static final String CHANNEL_THURSDAY = "thursday";
-    public static final String CHANNEL_FRIDAY = "friday";
-    public static final String CHANNEL_SATURDAY = "saturday";
-    public static final String CHANNEL_SUNDAY = "sunday";
+    public static final String CHANNEL_MONDAY = "mondaySwitchTimes";
+    public static final String CHANNEL_TUESDAY = "tuesdaySwitchTimes";
+    public static final String CHANNEL_WEDNESDAY = "wednesdaySwitchTimes";
+    public static final String CHANNEL_THURSDAY = "thursdaySwitchTimes";
+    public static final String CHANNEL_FRIDAY = "fridaySwitchTimes";
+    public static final String CHANNEL_SATURDAY = "saturdaySwitchTimes";
+    public static final String CHANNEL_SUNDAY = "sundaySwitchTimes";
 
     public static final String CHANNEL_ENERGY_TOTAL = "energyTotal";
     public static final String CHANNEL_POWER_5MINUTES = "power5Minutes";

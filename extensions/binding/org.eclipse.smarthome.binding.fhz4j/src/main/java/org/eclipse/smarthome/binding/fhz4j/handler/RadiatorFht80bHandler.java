@@ -55,7 +55,7 @@ import de.ibapl.fhz4j.protocol.fht.FhtWarningMessage;
  * @author aploese@gmx.de - Initial contribution
  */
 public class RadiatorFht80bHandler extends BaseThingHandler {
-    protected ThingStatusDetail owHandlerStatus = ThingStatusDetail.HANDLER_CONFIGURATION_PENDING;
+    protected ThingStatusDetail fht80HandlerStatus = ThingStatusDetail.HANDLER_CONFIGURATION_PENDING;
 
     private final Logger logger = LoggerFactory.getLogger(RadiatorFht80bHandler.class);
 
@@ -161,6 +161,7 @@ public class RadiatorFht80bHandler extends BaseThingHandler {
                 }
                 break;
             default:
+                logger.error("Unknown Fht80 (" + housecode + ") channel: " + channelUID.getId());
         }
     }
 
@@ -196,18 +197,19 @@ public class RadiatorFht80bHandler extends BaseThingHandler {
             housecode = ((Number) configuration.get("housecode")).shortValue();
         } catch (Exception e) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.HANDLER_INITIALIZING_ERROR, "Can't parse housecode");
+            fht80HandlerStatus = ThingStatusDetail.HANDLER_INITIALIZING_ERROR;
             return;
         }
 
         Bridge bridge = getBridge();
         if (bridge == null) {
             updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR, "no bridge assigned");
-            owHandlerStatus = ThingStatusDetail.CONFIGURATION_ERROR;
+            fht80HandlerStatus = ThingStatusDetail.CONFIGURATION_ERROR;
             return;
         } else {
             if (bridge.getStatus().equals(ThingStatus.ONLINE)) {
                 updateStatus(ThingStatus.ONLINE);
-                owHandlerStatus = ThingStatusDetail.NONE;
+                fht80HandlerStatus = ThingStatusDetail.NONE;
             } else {
                 updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.BRIDGE_OFFLINE);
             }

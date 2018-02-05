@@ -6,7 +6,7 @@
 	<!-- Sample Thing Type -->
 	<thing-type id="em-1000-em">
 		<supported-bridge-type-refs>
-			<bridge-type-ref id="rs232-bridge" />
+			<bridge-type-ref id="rs232-bridge-cul" />
 		</supported-bridge-type-refs>
 
 		<label>EM 1000 EM</label>

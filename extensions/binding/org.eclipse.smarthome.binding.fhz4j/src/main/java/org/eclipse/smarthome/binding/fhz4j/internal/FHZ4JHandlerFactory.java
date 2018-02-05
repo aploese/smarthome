@@ -46,7 +46,7 @@ import de.ibapl.spsw.api.SerialPortSocketFactory;
  *
  * @author aploese@gmx.de - Initial contribution
  */
-@Component(service = ThingHandlerFactory.class, immediate = true, configurationPid = "binding.onewire4j")
+@Component(service = ThingHandlerFactory.class, immediate = true, configurationPid = "binding.fhz4j")
 public class FHZ4JHandlerFactory extends BaseThingHandlerFactory {
 
     private static final Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = ImmutableSet.of(

@@ -44,17 +44,53 @@
 		</state>
 	</channel-type>
 
-	<channel-type id="temperatureDesired">
-		<item-type>Number</item-type>
-		<label>Desired Temperature</label>
-		<description>Desired Temperature</description>
-		<category>Radiator</category>
-		<tags>
-			<tag>TargetTemperature</tag>
-		</tags>
-		<state min="0" max="30" step="0.5" pattern="%.1f °C" >
-		</state>
-	</channel-type>
+    <channel-type id="desiredTemperature">
+        <item-type>Number</item-type>
+        <label>Desired temperature</label>
+        <description>Desired temperature.</description>
+        <category>Radiator</category>
+        <tags>
+            <tag>TargetTemperature</tag>
+        </tags>
+        <state min="0" max="30" step="0.5" pattern="%.1f °C" >
+        </state>
+    </channel-type>
+
+    <channel-type id="dayTemperature">
+        <item-type>Number</item-type>
+        <label>Day temperature</label>
+        <description>Desired day temperature.</description>
+        <category>Radiator</category>
+        <tags>
+            <tag>TargetTemperature</tag>
+        </tags>
+        <state min="0" max="30" step="0.5" pattern="%.1f °C" >
+        </state>
+    </channel-type>
+
+    <channel-type id="nigthtTemperature">
+        <item-type>Number</item-type>
+        <label>Night Temperature</label>
+        <description>Desired night temperature</description>
+        <category>Radiator</category>
+        <tags>
+            <tag>TargetTemperature</tag>
+        </tags>
+        <state min="0" max="30" step="0.5" pattern="%.1f °C" >
+        </state>
+    </channel-type>
+
+    <channel-type id="windowOpenTemperature">
+        <item-type>Number</item-type>
+        <label>Window open Temperature</label>
+        <description>Desired window open temperature</description>
+        <category>Radiator</category>
+        <tags>
+            <tag>TargetTemperature</tag>
+        </tags>
+        <state min="0" max="30" step="0.5" pattern="%.1f °C" >
+        </state>
+    </channel-type>
 
 	<channel-type id="valvePos">
 		<item-type>Number</item-type>

@@ -6,7 +6,7 @@
 	<!-- Sample Thing Type -->
 	<thing-type id="hms-100-tf">
 		<supported-bridge-type-refs>
-			<bridge-type-ref id="rs232-bridge" />
+			<bridge-type-ref id="rs232-bridge-cul" />
 		</supported-bridge-type-refs>
 
 		<label>HMS 100 TF Sensor</label>
